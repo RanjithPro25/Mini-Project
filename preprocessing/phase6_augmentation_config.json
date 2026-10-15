@@ -1,0 +1,39 @@
+{
+    "phase": 6,
+    "augmentation_enabled": true,
+    "apply_during_training": true,
+    "horizontal_flip": {
+        "enabled": true,
+        "probability": 0.5
+    },
+    "small_rotation": {
+        "enabled": true,
+        "degrees": 10
+    },
+    "scaling": {
+        "enabled": true,
+        "scale_min": 0.9,
+        "scale_max": 1.1
+    },
+    "translation": {
+        "enabled": true,
+        "translate_x": 0.1,
+        "translate_y": 0.1
+    },
+    "brightness": {
+        "enabled": true,
+        "brightness_min": 0.85,
+        "brightness_max": 1.15
+    },
+    "normalization": {
+        "enabled": true,
+        "method": "min_max",
+        "formula": "(x - xmin) / (xmax - xmin)"
+    },
+    "output": {
+        "format": "JPEG",
+        "quality": 95,
+        "color_mode": "RGB"
+    },
+    "note": "Augmentation will be applied dynamically after dataset splitting."
+}
