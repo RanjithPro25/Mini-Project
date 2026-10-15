@@ -1,0 +1,12 @@
+Metric,Value
+Expected Phase 8 records,4254
+Phase 8 train,2710
+Phase 8 val,738
+Phase 8 test,806
+Processed,4254
+Valid,0
+Repaired,0
+Invalid,4254
+Missing images,0
+Missing labels,4022
+Image read errors,0

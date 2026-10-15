@@ -1,0 +1,14 @@
+Metric,Value
+Expected annotated images,4254
+Images found,29021
+Labels found,2760
+Checked,29021
+Valid annotations,2620
+Invalid annotations,26401
+Missing labels,26261
+Missing images,0
+Empty labels,0
+Invalid classes,0
+Invalid coordinates,129
+Invalid boxes,13
+Image read errors,0
