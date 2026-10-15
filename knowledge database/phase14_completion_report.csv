@@ -1,0 +1,10 @@
+﻿metric,value
+Model species,313
+Venomous verified,0
+Non-venomous verified,0
+Venom status unresolved,313
+Venom scales rated,0
+Safety guidance populated,313
+WHO first-aid source,https://www.who.int/health-topics/snakebite
+WHO snake database,https://www.who.int/teams/control-of-neglected-tropical-diseases/snakebite-envenoming/snakebite-information-and-data-platform/
+Venom score definition,VenomGuard project score; not an official WHO score
