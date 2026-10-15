@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#183f29"/><stop offset=".5" stop-color="#315d2d"/><stop offset="1" stop-color="#081c12"/></linearGradient><linearGradient id="snake" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8f04c"/><stop offset=".55" stop-color="#68b72e"/><stop offset="1" stop-color="#1d6f35"/></linearGradient></defs>
+<rect width="800" height="520" fill="url(#bg)"/>
+<g opacity=".45" fill="#75b45b"><ellipse cx="90" cy="100" rx="120" ry="45" transform="rotate(-30 90 100)"/><ellipse cx="700" cy="90" rx="160" ry="55" transform="rotate(35 700 90)"/><ellipse cx="680" cy="430" rx="180" ry="55" transform="rotate(-20 680 430)"/><ellipse cx="130" cy="430" rx="160" ry="55" transform="rotate(20 130 430)"/></g>
+<path d="M90 370 C190 250 280 390 370 280 C460 170 545 335 690 185" fill="none" stroke="#102b19" stroke-width="58" stroke-linecap="round"/>
+<path d="M90 370 C190 250 280 390 370 280 C460 170 545 335 690 185" fill="none" stroke="url(#snake)" stroke-width="45" stroke-linecap="round"/>
+<path d="M600 250c25-23 62-27 88-9l42 28-45 18c-32 13-68 0-85-37z" fill="#79c936" stroke="#163c1f" stroke-width="5"/>
+<circle cx="700" cy="249" r="5" fill="#101810"/><path d="M735 268l26 5" stroke="#e6ff8b" stroke-width="3"/>
+</svg>
