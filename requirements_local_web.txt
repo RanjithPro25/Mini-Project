@@ -1,0 +1,18 @@
+Flask>=3.0,<4
+Pillow>=10
+numpy>=1.26
+pandas>=2.0
+torch>=2.0
+torchvision>=0.15
+ultralytics>=8.3,<9
+# Optional natural-language / intent model support
+transformers>=4.40
+sentencepiece>=0.2
+# Optional offline voice-to-text support
+vosk>=0.3.45
+
+requests>=2.31
+beautifulsoup4>=4.12
+
+# Online neural AI Voice Talk (English/Tamil)
+edge-tts>=7.2.0
