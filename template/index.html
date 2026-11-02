@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VenomGuard AI — Snake Intelligence</title>
+<link rel="stylesheet" href="/static/style.css?v=20261005-neural-tts-v3">
+  <link rel="stylesheet" href="/static/emergency_contacts.css">
+</head>
+<body>
+<div class="ambient"></div>
+<header class="topbar">
+  <div class="brand">
+    <img src="/static/assets/VenomGuard_Realistic_Logo.svg" alt="VenomGuard Realistic Logo" class="logo">
+    <div><div class="brand-name">VenomGuard <span>AI</span></div><div class="tagline">AI-powered snake identification • Local-first safety intelligence</div></div>
+  </div>
+  <div class="header-actions">
+    <div class="mode-switch-group" aria-label="VenomGuard execution mode">
+      <span class="mode-switch-label">Mode</span>
+      <label class="mode-toggle"><span>Offline</span><input id="offlineModeToggle" type="checkbox" checked><i></i></label>
+      <label class="mode-toggle online-toggle"><span>Online</span><input id="onlineModeToggle" type="checkbox"><i></i></label>
+    </div>
+    <label class="theme-toggle"><span>☀</span><input id="themeToggle" type="checkbox"><i></i><span>☾</span></label>
+    <span class="dark-mode-text">Dark mode</span>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero panel">
+    <div>
+      <span class="eyebrow">ONE UNIFIED WORKSPACE</span>
+      <h1>Identify a Snake with AI</h1>
+      <p>Upload or capture an image, describe the snake, or speak in English. VenomGuard ranks matching species and displays the selected species record.</p>
+    </div>
+    <div class="hero-points"><span>Local models</span><span>313 species</span><span>Human confirmation</span></div>
+  </section>
+
+  <section class="mode-strip panel">
+    <button class="mode-tab active" data-mode="imageMode"><span>📷</span><b>Image Detection</b><small>Upload or real-time capture</small></button>
+    <button class="mode-tab" data-mode="textMode"><span>📝</span><b>Text Detection</b><small>Natural-language attributes</small></button>
+    <button class="mode-tab" data-mode="voiceMode"><span>🎙</span><b>Voice Detection</b><small>Voice → text → matching</small></button>
+  </section>
+
+  <section class="input-area">
+    <div id="imageMode" class="mode-section active panel input-card">
+      <div class="section-title"><span class="icon">▧</span><div><h2>Image Detection</h2><p>YOLOv8 localizes the snake and EfficientNet-B3 ranks the 313 trained species.</p></div></div>
+      <div class="image-input-grid">
+        <label id="dropzone" class="dropzone">
+          <input id="fileInput" type="file" accept="image/*" hidden>
+          <div class="upload-icon">↥</div><strong>Drop a snake image here</strong><span>or choose a photo from your computer</span>
+          <button id="chooseBtn" type="button" class="primary">Choose Image</button>
+          <small>JPG • PNG • WEBP • maximum 10 MB</small>
+        </label>
+        <div class="capture-card">
+          <video id="cameraVideo" autoplay muted playsinline></video>
+          <canvas id="cameraCanvas" hidden></canvas>
+          <div class="capture-actions"><button id="startCamera" class="secondary">📹 Open Camera</button><button id="capturePhoto" class="primary" disabled>● Capture</button><button id="stopCamera" class="ghost" disabled>Stop</button></div>
+          <p id="cameraStatus">Camera is optional. Your photo stays on this computer.</p>
+        </div>
+        <div class="preview-card"><img id="preview" src="/static/assets/sample_snake.svg" alt="Selected snake image"><div class="preview-label" id="fileName">No image selected</div></div>
+      </div>
+      <div class="action-row"><button id="analyzeBtn" class="primary big" disabled>Analyze Snake</button><span id="imageProgress">Ready</span></div>
+    </div>
+
+    <div id="textMode" class="mode-section panel input-card">
+      <div class="section-title"><span class="icon">Aa</span><div><h2>Text Detection</h2><p>Describe visible attributes in ordinary natural language. The ranking engine combines attribute, semantic, local-image and optional BioCLIP evidence.</p></div></div>
+      <div class="language-row"><span>Language: English</span><span>Example: “I saw a small bright green slender snake climbing a tree.”</span></div>
+      <textarea id="descriptionInput" class="description" placeholder="Describe what you saw: colour, body size, body shape, head, pattern, tail, behaviour, habitat, location..."></textarea>
+      <div class="action-row"><button id="describeBtn" class="primary big">Find Top 5 Matches</button><span id="textStatus">Natural-language matching</span></div>
+    </div>
+
+    <div id="voiceMode" class="mode-section panel input-card">
+      <div class="section-title"><span class="icon">🎙</span><div><h2>Voice Detection</h2><p>Speak your snake description in English. Voice is converted to text and sent through the same matching engine.</p></div></div>
+      <div class="language-row"><label>Voice language <select id="voiceLanguage"><option value="en-IN">English (India)</option></select></label><span id="voiceOfflineStatus">Offline Vosk model: checking…</span></div>
+      <div class="voice-recorder"><button id="recordVoice" class="voice-record">● Start Recording</button><div class="record-indicator" id="recordIndicator">Ready</div><div class="voice-wave" id="voiceWave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <textarea id="voiceTranscript" class="description" placeholder="Your converted speech will appear here. You can edit it before matching."></textarea>
+      <div class="action-row"><button id="voiceMatchBtn" class="primary big">Match Voice Description</button><span id="voiceStatus">Ready</span></div>
+    </div>
+  </section>
+
+  <section id="outputSection" class="panel output-section">
+    <div class="output-header"><div><span class="eyebrow" id="outputEyebrow">AI OUTPUT</span><h2 id="outputTitle">Waiting for an analysis</h2><p id="outputSubtitle">Your selected species details will appear across the full workspace.</p></div><span id="statusPill" class="status waiting">Waiting</span></div>
+    <div id="analysisProgress" class="analysis-progress" hidden>
+      <div class="analysis-progress-top"><span id="analysisProgressLabel">Analyzing...</span><strong id="analysisProgressPercent">0%</strong></div>
+      <div class="analysis-progress-track"><i id="analysisProgressBar"></i></div>
+      <div id="analysisProgressDetail" class="analysis-progress-detail">Preparing AI analysis...</div>
+    </div>
+    <div id="outputContent" class="output-content"></div>
+  </section>
+
+  <section id="onlineSection" class="panel online-results-section" hidden>
+    <div class="section-title"><span class="icon">🌐</span><div><h2>Online Snake Information</h2><p>When Online Mode is enabled and the local dataset cannot confidently resolve the snake, VenomGuard searches external snake-information sources and shows the retrieved details below.</p></div></div>
+    <div id="onlineStatus" class="candidate-status">Online search has not been requested.</div>
+    <div id="onlineSources" class="online-source-grid"></div>
+  </section>
+
+  <section id="candidateSection" class="panel candidates-section">
+    <div class="section-title"><span class="icon">★</span><div><h2>Top 5 Matching Species</h2><p>Select the snake you actually saw. Each candidate includes a real local sample image so you can visually compare it with your input.</p></div></div>
+    <div id="candidateStatus" class="candidate-status">No candidates yet.</div>
+    <div id="candidateGrid" class="candidate-grid"></div>
+  </section>
+
+  <section class="panel database-section">
+    <div class="section-title"><span class="icon">▥</span><div><h2>Species Database</h2><p>Search the complete 313-species Phase 14 factual database. Selecting a result sends it to the same full-width output area above.</p></div></div>
+    <div class="database-search"><input id="speciesSearch" placeholder="Search scientific name or common name…"><button id="speciesSearchBtn" class="primary">Search</button></div>
+    <div id="databaseResults" class="database-results"><span>Search for a species to begin.</span></div>
+  </section>
+
+  <section class="panel batch-section">
+    <div class="section-title"><span class="icon">▦</span><div><h2>Batch Analysis</h2><p>Process multiple images locally without leaving the workspace.</p></div></div>
+    <div class="batch-row"><input id="batchInput" type="file" accept="image/*" multiple><button id="batchBtn" class="primary">Start Batch</button><span id="batchStatus">No batch selected</span></div>
+    <div class="progress"><i id="batchProgress"></i></div><div id="batchResults"></div>
+  </section>
+
+  <section class="panel voice-talk">
+    <div class="section-title"><span class="icon">🔊</span><div><h2>AI Voice Talk</h2><p>Use the same result from Image, Text, Voice, or Database search and hear the answer aloud.</p></div></div>
+    <div class="talk-grid"><label>Language<select id="talkLanguage"><option value="en-US">English</option></select></label><label>Voice<select id="voiceProfile"></select></label><button id="speakResult" class="primary">🔊 Speak Result</button><button id="stopSpeech" class="secondary">■ Stop</button></div>
+    <textarea id="talkText" class="talk-text" placeholder="The selected result summary will appear here. You can edit it before speaking."></textarea>
+    <div class="voice-note" id="voiceCatalogNote">Online Mode uses neural English voices. Offline Mode uses English voices installed on this computer.</div>
+  </section>
+
+  <section class="panel offline-online">
+    <div><span class="eyebrow">MODE</span><h2>Offline is the default</h2><p>Core YOLOv8, EfficientNet-B3, Phase 14, and the local text/voice ranking pipeline are designed to run on this computer without uploading the user's snake image.</p></div>
+    <div class="online-keyword"><b>When should Online be enabled?</b><span>Only for external/web knowledge or services that are not present in the local project.</span><strong>Core identification does not require Online Mode.</strong></div>
+  </section>
+</main>
+<footer>VenomGuard AI • Offline-first • English interface • Assistive identification, not a substitute for expert identification or medical care.</footer>
+<script src="/static/app.js?v=20261005-neural-tts-v3"></script>
+  <script src="/static/emergency_contacts.js?v=20261101-server-location-dataset-medical" defer></script>
+</body>
+</html>
