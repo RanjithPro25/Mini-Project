@@ -1,0 +1,16 @@
+/* VenomGuard Emergency Contacts add-on; isolated from model styles. */
+#vgEmergencyPanel { margin: 1.25rem 0; padding: 1.25rem; border: 1px solid var(--border, #d9e1ea); border-radius: 16px; background: var(--panel, #fff); color: var(--text, #172033); }
+#vgEmergencyPanel * { box-sizing: border-box; }
+#vgEmergencyPanel .vg-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.75rem; }
+#vgEmergencyPanel label { display:flex; flex-direction:column; gap:.35rem; font-weight:600; font-size:.92rem; }
+#vgEmergencyPanel input, #vgEmergencyPanel select, #vgEmergencyPanel textarea { width:100%; padding:.7rem .8rem; border:1px solid #aeb9c8; border-radius:9px; font:inherit; color:inherit; background:transparent; }
+#vgEmergencyPanel textarea { min-height:120px; resize:vertical; }
+#vgEmergencyPanel .vg-actions { display:flex; flex-wrap:wrap; gap:.5rem; margin:.75rem 0; }
+#vgEmergencyPanel button, #vgEmergencyPanel a.vg-btn { display:inline-block; border:0; border-radius:9px; padding:.65rem .9rem; cursor:pointer; font:inherit; font-weight:700; text-decoration:none; background:#174ea6; color:white; }
+#vgEmergencyPanel button.vg-muted, #vgEmergencyPanel a.vg-muted { background:#e8edf4; color:#172033; }
+#vgEmergencyPanel .vg-contact { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.6rem; border:1px solid #d6deea; border-radius:10px; padding:.7rem; margin:.5rem 0; }
+#vgEmergencyPanel .vg-contact small { display:block; opacity:.75; }
+#vgEmergencyPanel .vg-note { font-size:.9rem; line-height:1.45; opacity:.88; }
+#vgEmergencyPanel .vg-status { margin:.5rem 0; font-weight:600; }
+#vgEmergencyPanel .vg-error { color:#b42318; }
+#vgEmergencyPanel .vg-good { color:#067647; }
