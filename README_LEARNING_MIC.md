@@ -1,1 +1,0 @@
-Learning tab is isolated from Image/Text/Voice detection. Voice recording uses the browser/system default microphone; an optional microphone selector is provided when the browser exposes audio input devices. A physical or USB/Bluetooth microphone is still required to capture live speech.
